@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}Sensors{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Sensors</h1>
+    </div>
+  </div>
+  <div class="row">
+    {% for sensor in sensors %}
+      <div class="col">
+        <div class="card" style="width: 10rem;">
+          <img src="{% if sensor.status: %} {{url_for('static', filename='img/on.jpg')}} {% else %} {{url_for('static', filename='img/off.jpg')}} {% endif %}" class="card-img-top" alt="sensor_on">
+          <div class="card-body">
+            <h5 class="card-title">{{ sensor.name }}</h5>
+            <a href="{{ api_key }}/{{ sensor.name }}" class="btn btn-primary">View data</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

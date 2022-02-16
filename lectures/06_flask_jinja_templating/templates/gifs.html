@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Giphy Search{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col text-primary">
+      <h1>Giphy Search</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <form action="/" method="post">
+        <p>
+          Search for GIFs:<br>
+          {{form.query.label}}: {{ form.query(size=20) }} <br>
+          {% for error in form.query.errors %}
+            <span class="text-danger">[{{error}}] </span>
+          {% endfor %}
+          <input type="submit" value="Get Picture">
+        </p>
+      </form>
+      {%if no_search_result %}
+      <span class="text-info">Unfortunately, there are no result for your search.</span>
+      {%endif %}
+      <img src="{{ gif.url }}" alt="{{ gif.alt }}">
+    </div>
+  </div>
+</div>
+{% endblock %}

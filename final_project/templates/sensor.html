@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}Sensor {{ sensor }}{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Data of sensor {{ sensor }}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <ul class="list-group">
+        {% for data in sensor_data %}
+        <li class="list-group-item">{{ data.datetime.strftime('%Y-%m-%d %H:%M:%S')  }} : {{ data.value }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

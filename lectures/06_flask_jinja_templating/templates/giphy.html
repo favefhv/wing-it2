@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block title %}Giphy API {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <img src="{{ gif.url }}" alt="{{ gif.alt }}">
+        </div>
+    </div>
+</div>
+{% endblock %}
