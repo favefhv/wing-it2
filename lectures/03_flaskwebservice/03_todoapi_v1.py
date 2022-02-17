@@ -1,8 +1,5 @@
 from flask import Flask, jsonify
-from flasgger import Swagger   #  install the module for vs code: py -m pip install flasgger
 app = Flask(__name__)
-swagger = Swagger(app)
-app.config['SWAGGER'] = { 'title' : 'WING ToDoes API' }
 
 todoes = [{"id":1,
       "title":"Get used to HTTP Requests",
@@ -12,57 +9,12 @@ todoes = [{"id":1,
 
 @app.route('/api/todoes/')
 def index():
-    """ Returns all todoes
-    ---
-    definitions:
-      ToDoes:
-        type: array
-        items:
-          $ref: '#/definitions/ToDo'
-      ToDo:
-        type: object
-        properties:
-          id: 
-            type: integer
-          title:
-            type: string
-          description:
-            type: string
-          completed:
-            type: boolean
-          targetDate:
-            type: string
-            description: target date
-            example: "2021-01-01"
-            format: date
-            pattern: "YYYY-MM-DD"
-            minLength: 0
-            maxLength: 10
-    responses:
-      200:
-        description: A list of todoes
-        schema:
-          $ref: '#/definitions/ToDoes'
-    """  
+    """returns all todoes"""
     return jsonify(todoes), 200
 
 @app.route('/api/todoes/<int:id>', methods=['GET'])
 def getById(id):
-    """ Returns a todo by id
-    ---
-    ---
-    parameters:
-      - name: id
-        in: path
-        type: integer
-        default: 0
-        required: true
-    responses:
-      200:
-        description: A todo
-        schema:
-          $ref: '#/definitions/ToDo'
-    """  
+    """return todo by id"""
     for todo in todoes:
         if todo["id"] == id:
             return jsonify(todo), 200
@@ -80,19 +32,7 @@ from datetime import date
 
 @app.route("/api/todoes/", methods=["POST"])
 def postToDo():
-    """This method adds new todo
-    ---
-    parameters:
-      - name: body
-        in: body
-        required: true
-        example: {'title':'Title of ToDo','description':'Description of ToDo','completed':False,'targetDate':'2022-02-26'}
-    responses:
-      201:
-        description: Adds a todo
-        schema:
-          $ref: '#/definitions/ToDo'
-    """
+    """creates a todo item"""
     if request.is_json:
         json_data = request.get_json()
         
@@ -109,24 +49,7 @@ def postToDo():
     
 @app.route("/api/todoes/<int:id>", methods=["PUT"])
 def putToDo(id):
-    """This method updates an existing todo
-    ---
-    parameters:
-      - name: id
-        in: path
-        type: integer
-        default: 0
-        required: true
-      - name: body
-        in: body
-        required: true
-        example: {'id':0,'title':'Title of ToDo','description':'Description of ToDo','completed':False,'targetDate':'2022-02-26'}
-    responses:
-      200:
-        description: Updates a todo
-        schema:
-          $ref: '#/definitions/ToDo'
-    """
+    """updates a todo item"""
     selTodo = None
     for todo in todoes:
         if todo["id"] == id:
@@ -155,21 +78,10 @@ def putToDo(id):
 
 @app.route('/api/todoes/<int:id>', methods=['DELETE'])
 def deleteToDo(id):
-    """This method deletes a todo
-    ---
-    ---
-    parameters:
-      - name: id
-        in: path
-        type: integer
-        default: 0
-        required: true
-    responses:
-      204:
-        description: No Content
-    """  
+    """deletes a todo item"""
     for todo in todoes:
         if todo["id"] == id:
             todoes.remove(todo)
             return {}, 204
     return jsonify({"error": "Not found"}), 404
+
