@@ -1,4 +1,5 @@
 from tkgpio import TkCircuit #  install the module for vs code: py -m pip install tkgpio
+import wing_api
 
 # initialize the circuit inside the GUI
 configuration = {
@@ -14,24 +15,6 @@ configuration = {
         {"x": 160, "y": 40, "name": "Light Sensor", "pin": 8}
     ],
 }
-
-def send_status_change_to_server(status):
-    import requests
-    import json
-
-    sensor_id = 6
-    api_key = "wing_test"
-    url = "http://domainname.org/api/sensors/" + str(sensor_id) # todo: change the url
-    print(url)
-
-    # POST-Request
-    data = { "value": status }
-    headers = {'Content-Type': 'application/json', 'api_key' : api_key}
-    response = requests.post(url, data=json.dumps(data), headers=headers)
-
-    # print status code and content
-    print(response.status_code)
-    print(response.content)
 
 circuit = TkCircuit(configuration)
 @circuit.run
@@ -52,12 +35,12 @@ def main ():
         if light_sensor.value * 100 < 30 and motion_sensor.is_active:
             if not status:
                 status = True
-                send_status_change_to_server(status)
+                wing_api.send_status_change_to_server(status)
             led.on()
         else:
             if status:
                 status = False
-                send_status_change_to_server(status)
+                wing_api.send_status_change_to_server(status)
             led.off()
         sleep(0.1)
 
