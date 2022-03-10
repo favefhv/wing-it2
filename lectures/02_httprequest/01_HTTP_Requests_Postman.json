@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "e57b40c4-5f7e-4db0-832f-d168ab912a5f",
+		"name": "02 HTTP Requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "HTTP Request: HTML",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http:\\\\www.if-schleife.de",
+					"protocol": "http",
+					"host": [
+						"www",
+						"if-schleife",
+						"de"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HTTP Request: Get all ToDoes (Json)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://wingtodoes.azurewebsites.net/api/todoes/",
+					"protocol": "http",
+					"host": [
+						"wingtodoes",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"todoes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HTTP Request: Get ToDo by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://wingtodoes.azurewebsites.net/api/todoes/1",
+					"protocol": "http",
+					"host": [
+						"wingtodoes",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"todoes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HTTP Requests: Add ToDo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Send Put Request\",\r\n    \"description\": \"Update this Item.\",\r\n    \"completed\": false,\r\n    \"targetDate\": \"2021-02-26T00:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wingtodoes.azurewebsites.net/api/todoes/",
+					"protocol": "http",
+					"host": [
+						"wingtodoes",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"todoes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HTTP Request: Update ToDo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"title\": \"Send Put Request\",\r\n    \"description\": \"Update this Item.\",\r\n    \"completed\": true,\r\n    \"targetDate\": \"2021-02-26T00:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wingtodoes.azurewebsites.net/api/todoes/2",
+					"protocol": "http",
+					"host": [
+						"wingtodoes",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"todoes",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HTTP Request: Delete ToDo",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://wingtodoes.azurewebsites.net/api/todoes/2",
+					"protocol": "http",
+					"host": [
+						"wingtodoes",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"todoes",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

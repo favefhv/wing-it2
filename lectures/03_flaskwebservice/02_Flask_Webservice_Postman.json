@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "83563e02-7da9-42ed-851c-c73f44edc2f1",
+		"name": "03 Flask Webservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Stock",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/stock",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"stock"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Stock Collection",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/stock/fruit",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"stock",
+						"fruit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Stock Collection Member",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/stock/fruit/apple",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"stock",
+						"fruit",
+						"apple"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Stock Add Collection",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hardware\": {\r\n        \"printer\": 10,\r\n        \"laptop\": 25,\r\n        \"tablet\": 100\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/stock/hardware2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"stock",
+						"hardware2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
