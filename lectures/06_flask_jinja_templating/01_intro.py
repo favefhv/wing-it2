@@ -1,8 +1,5 @@
-from flask import Flask
+from flask import Flask, render_template    #Step 5 - Rendering Templates: https://flask.palletsprojects.com/en/2.0.x/quickstart/#rendering-templates
 app = Flask(__name__)
-
-#Step 5 - Rendering Templates: https://flask.palletsprojects.com/en/2.0.x/quickstart/#rendering-templates
-from flask import render_template 
 
 @app.route('/')
 def index():
