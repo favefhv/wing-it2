@@ -1,8 +1,8 @@
 from flask import Flask, jsonify
 from flasgger import Swagger   #  install the module for vs code: py -m pip install flasgger
 app = Flask(__name__)
-swagger = Swagger(app)
 app.config['SWAGGER'] = { 'title' : 'WING ToDoes API' }
+swagger = Swagger(app)
 
 todoes = [{"id":1,
       "title":"Get used to HTTP Requests",

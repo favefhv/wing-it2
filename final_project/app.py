@@ -2,10 +2,10 @@ from flask import Flask
 from flasgger import Swagger
 
 app = Flask(__name__)
-swagger = Swagger(app)
 app.config['SWAGGER'] = {
     'title': 'WING Sensor API'
 }
+swagger = Swagger(app)
 
 import os
 path_to_data = "/tmp/"
