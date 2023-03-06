@@ -2,7 +2,6 @@ from flask import Flask, Response, render_template, request
 from flasgger import Swagger
 from Api import Api
 from Views import Views
-from Security import Security
 import json
 
 app = Flask(__name__)
@@ -13,9 +12,8 @@ swagger = Swagger(app)
 
 path_to_data = "/tmp/"
 
-security = Security(path_to_data)
-api = Api(path_to_data, security)
-views = Views(path_to_data, security)
+api = Api(path_to_data)
+views = Views(path_to_data)
 
 # --------------- Frontend ---------------
 @app.route('/')
@@ -26,25 +24,19 @@ def index():
 def not_found(error):
     return render_template('error.html', error = error), 404
 
-@app.route('/sensors/<api_key>')
-def get_sensors(api_key):
-    return render_template('sensors.html', sensors=views.get_sensors(api_key), api_key = api_key)
+@app.route('/sensors')
+def get_sensors():
+    return render_template('sensors.html', sensors=views.get_sensors())
 
-@app.route('/sensors/<api_key>/<int:sensor_id>')
-def get_sensor_data(api_key, sensor_id):
-    return render_template('sensor.html', sensor_data=views.get_sensor_data(api_key, sensor_id), sensor = sensor_id)
+@app.route('/sensors/<int:sensor_id>')
+def get_sensor_data(sensor_id):
+    return render_template('sensor.html', sensor_data=views.get_sensor_data(sensor_id), sensor = sensor_id)
 
 # --------------- API ---------------
 @app.route('/api/sensors', methods=['GET'])
 def sensors():
-    """This method returns the existing sensors based on your api_key
+    """This method returns the existing sensors
     ---
-    parameters:
-      - name: api_key
-        in: header
-        type: string
-        required: true
-        default: wing_test
     responses:
       200:
         description: A list of sensor IDs
@@ -53,18 +45,13 @@ def sensors():
           items:
               type: string
     """
-    return Response(json.dumps(api.get_sensors(api_key = request.headers.get("api_key"))), status=200, mimetype='application/json')
+    return Response(json.dumps(api.get_sensors()), status=200, mimetype='application/json')
 
 @app.route('/api/sensors/<int:sensor_id>', methods=['POST'])
 def add_sensor_data(sensor_id):
     """This method adds new sensor data
     ---
     parameters:
-      - name: api_key
-        in: header
-        type: string
-        required: true
-        default: wing_test
       - name: sensor_id
         in: path
         type: integer
@@ -88,19 +75,7 @@ def add_sensor_data(sensor_id):
         schema:
           $ref: '#/definitions/SensorData'
     """
-    return Response(json.dumps(api.add_sensor_data(request.headers.get("api_key"), sensor_id, json.loads(request.data)["value"])), status=201, mimetype='application/json')
-
-@app.route('/api/generate_key')
-def generate_key():
-    """This method returns a new API key
-    ---
-    responses:
-      201:
-        description: newly generated API key
-        schema:
-          type: string
-    """
-    return api.generate_new_api_key(), 201
+    return Response(json.dumps(api.add_sensor_data(sensor_id, json.loads(request.data)["value"])), status=201, mimetype='application/json')
 
 @app.route('/api/generate_data')
 def generate_data():
@@ -115,3 +90,13 @@ def generate_data():
             $ref: '#/definitions/SensorData'
     """
     return Response(json.dumps(api.generate_test_data()), status=201, mimetype='application/json')
+
+@app.route('/api/sensors', methods=['DELETE'])
+def sensors_delete():
+    """This method deletes all sensors with its data
+    ---
+    responses:
+      204:
+        description: Successfully deleted sensors
+    """
+    return Response(api.delete_sensors(), status=204)
