@@ -46,8 +46,8 @@ def index():
     """  
     return jsonify(todoes), 200
 
-@app.route('/api/todoes/<int:id>', methods=['GET'])
-def getById(id):
+@app.route('/api/todoes/<int:todoId>', methods=['GET'])
+def getById(todoId):
     """ Returns a todo by id
     ---
     ---
@@ -64,7 +64,7 @@ def getById(id):
           $ref: '#/definitions/ToDo'
     """  
     for todo in todoes:
-        if todo["id"] == id:
+        if todo["id"] == todoId:
             return jsonify(todo), 200
     return jsonify({"error": "Not found"}), 404
 
@@ -107,8 +107,8 @@ def postToDo():
             return jsonify(json_data), 201
     return jsonify({"error": "Bad request"}), 400
     
-@app.route("/api/todoes/<int:id>", methods=["PUT"])
-def putToDo(id):
+@app.route("/api/todoes/<int:todoId>", methods=["PUT"])
+def putToDo(todoId):
     """This method updates an existing todo
     ---
     parameters:
@@ -129,7 +129,7 @@ def putToDo(id):
     """
     selTodo = None
     for todo in todoes:
-        if todo["id"] == id:
+        if todo["id"] == todoId:
             selTodo = todo
             break
     if not selTodo:
@@ -153,8 +153,8 @@ def putToDo(id):
     else:
         return jsonify({"error": "Bad request"}), 400
 
-@app.route('/api/todoes/<int:id>', methods=['DELETE'])
-def deleteToDo(id):
+@app.route('/api/todoes/<int:todoId>', methods=['DELETE'])
+def deleteToDo(todoId):
     """This method deletes a todo
     ---
     ---
@@ -169,7 +169,7 @@ def deleteToDo(id):
         description: No Content
     """  
     for todo in todoes:
-        if todo["id"] == id:
+        if todo["id"] == todoId:
             todoes.remove(todo)
             return {}, 204
     return jsonify({"error": "Not found"}), 404
