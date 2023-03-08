@@ -40,9 +40,8 @@ class Api:
         sensor_data = {}
 
         # remove existing folder
-        if os.path.exists(self.__path_to_data):
-            shutil.rmtree(self.__path_to_data)
-        
+        self.delete_sensors()
+        # create root folder        
         os.makedirs(self.__path_to_data)    
         
         # generate random data
