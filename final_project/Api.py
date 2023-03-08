@@ -9,7 +9,7 @@ class Api:
         self.__path_to_data = path_to_data
 
     def get_sensors(self):
-        """Retrieves a list of all sensor IDs for a customer."""
+        """Retrieves a list of all sensor IDs."""
         sensors = []
         if os.path.exists(self.__path_to_data):
             with os.scandir(self.__path_to_data) as entries:
