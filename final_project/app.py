@@ -10,6 +10,7 @@ app.config['SWAGGER'] = {
 }
 swagger = Swagger(app)
 
+# path for files (storage - see c:/tmp) 
 path_to_data = "/tmp/"
 
 api = Api(path_to_data)
@@ -35,7 +36,7 @@ def get_sensor_data(sensor_id):
 # --------------- API ---------------
 @app.route('/api/sensors', methods=['GET'])
 def sensors():
-    """This method returns the existing sensors
+    """This method returns the IDs of the existing sensors
     ---
     responses:
       200:
@@ -49,7 +50,7 @@ def sensors():
 
 @app.route('/api/sensors/<int:sensor_id>', methods=['POST'])
 def add_sensor_data(sensor_id):
-    """This method adds new sensor data
+    """This method adds new sensor data. If the sensor does not exist, it will be created.
     ---
     parameters:
       - name: sensor_id
@@ -79,7 +80,7 @@ def add_sensor_data(sensor_id):
 
 @app.route('/api/generate_data')
 def generate_data():
-    """Generate test sensor data
+    """Generate sample sensor data
     ---
     responses:
       201:
