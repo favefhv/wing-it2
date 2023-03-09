@@ -1,8 +1,7 @@
-from flask import Flask, Response, render_template, request
+from flask import Flask, jsonify, render_template, request
 from flasgger import Swagger
 from Api import Api
 from Views import Views
-import json
 
 app = Flask(__name__)
 app.config['SWAGGER'] = {
@@ -46,7 +45,7 @@ def sensors():
           items:
               type: string
     """
-    return json.dumps(api.get_sensors()), 200
+    return jsonify(api.get_sensors()), 200
 
 @app.route('/api/sensors/<int:sensor_id>', methods=['POST'])
 def add_sensor_data(sensor_id):
@@ -76,7 +75,7 @@ def add_sensor_data(sensor_id):
         schema:
           $ref: '#/definitions/SensorData'
     """
-    return json.dumps(api.add_sensor_data(sensor_id, json.loads(request.data)["value"])), 201
+    return jsonify(api.add_sensor_data(sensor_id, request.json["value"])), 201
 
 @app.route('/api/generate_data')
 def generate_data():
@@ -90,7 +89,7 @@ def generate_data():
           additionalProperties:
             $ref: '#/definitions/SensorData'
     """
-    return json.dumps(api.generate_test_data()), 201
+    return jsonify(api.generate_test_data()), 201
 
 @app.route('/api/sensors', methods=['DELETE'])
 def sensors_delete():
@@ -100,4 +99,4 @@ def sensors_delete():
       204:
         description: Successfully deleted sensors
     """
-    return api.delete_sensors(), 204
+    return jsonify(api.delete_sensors()), 204
