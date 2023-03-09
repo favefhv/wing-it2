@@ -46,7 +46,7 @@ def sensors():
           items:
               type: string
     """
-    return Response(json.dumps(api.get_sensors()), status=200, mimetype='application/json')
+    return json.dumps(api.get_sensors()), 200
 
 @app.route('/api/sensors/<int:sensor_id>', methods=['POST'])
 def add_sensor_data(sensor_id):
@@ -76,7 +76,7 @@ def add_sensor_data(sensor_id):
         schema:
           $ref: '#/definitions/SensorData'
     """
-    return Response(json.dumps(api.add_sensor_data(sensor_id, json.loads(request.data)["value"])), status=201, mimetype='application/json')
+    return json.dumps(api.add_sensor_data(sensor_id, json.loads(request.data)["value"])), 201
 
 @app.route('/api/generate_data')
 def generate_data():
@@ -90,7 +90,7 @@ def generate_data():
           additionalProperties:
             $ref: '#/definitions/SensorData'
     """
-    return Response(json.dumps(api.generate_test_data()), status=201, mimetype='application/json')
+    return json.dumps(api.generate_test_data()), 201
 
 @app.route('/api/sensors', methods=['DELETE'])
 def sensors_delete():
@@ -100,4 +100,4 @@ def sensors_delete():
       204:
         description: Successfully deleted sensors
     """
-    return Response(api.delete_sensors(), status=204)
+    return api.delete_sensors(), 204
