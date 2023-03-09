@@ -75,7 +75,9 @@ def add_sensor_data(sensor_id):
         schema:
           $ref: '#/definitions/SensorData'
     """
-    return jsonify(api.add_sensor_data(sensor_id, request.json["value"])), 201
+    if request.json["value"] is None:
+      return jsonify({'error':'Value data is missing'}), 400
+    return jsonify(api.add_sensor_data(sensor_id, request.json)), 201
 
 @app.route('/api/generate_data')
 def generate_data():

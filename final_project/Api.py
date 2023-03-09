@@ -23,10 +23,11 @@ class Api:
         if os.path.exists(self.__path_to_data):
             shutil.rmtree(self.__path_to_data)
 
-    def add_sensor_data(self, sensor_id, value):
+    def add_sensor_data(self, sensor_id, data):
         """Adds a new sensor record to the storage"""
         if os.path.exists(self.__path_to_data):
-            data = { "datetime" : datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "value" : value }
+            if data.get("datetime") is None:  # set datetime if not set
+                data["datetime"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             with open(self.__path_to_data + "/" + str(sensor_id)+".txt", "a+") as f:
                 f.write(json.dumps(data) + "\n")
                 return data
