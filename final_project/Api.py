@@ -26,8 +26,8 @@ class Api:
     def add_sensor_data(self, sensor_id, data):
         """Adds a new sensor record to the storage"""
         if os.path.exists(self.__path_to_data):
-            if data.get("datetime") is None:  # set datetime if not set
-                data["datetime"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            # set datetime to ensure that a consistent date (system date of the server) is used
+            data["datetime"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             with open(self.__path_to_data + "/" + str(sensor_id)+".txt", "a+") as f:
                 f.write(json.dumps(data) + "\n")
                 return data

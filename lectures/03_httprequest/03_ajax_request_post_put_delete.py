@@ -15,7 +15,7 @@ url = "http://domainname.org/path"  # todo: change the url
 #response = requests.put(url + "/2", data=json.dumps(data), headers=headers)
 
 # DELETE-Request
-#response = requests.delete(url + "/2")
+response = requests.delete(url + "/2")
 
 # print status code and content
 print(response.status_code)
