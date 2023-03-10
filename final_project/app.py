@@ -10,7 +10,7 @@ app.config['SWAGGER'] = {
 swagger = Swagger(app)
 
 # path for files (storage - see c:/tmp) 
-path_to_data = "/tmp/"
+path_to_data = "/tmp/sensor_data/"
 
 api = Api(path_to_data)
 views = Views(path_to_data)
