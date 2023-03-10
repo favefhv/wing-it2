@@ -3,16 +3,16 @@ Beschreibung
 Author
 Datum
 """
-#https://flask.palletsprojects.com/en/2.0.x/quickstart/#a-minimal-application 
+#https://flask.palletsprojects.com/en/2.2.x/quickstart/#a-minimal-application
 from flask import Flask   #  install the module for vs code: py -m pip install flask
 app = Flask(__name__)
 
-# AddOn: to start via vs code: 1) set environment variable: $env:FLASK_APP="01_intro.py" 2) py -m flask run
+# AddOn: to start via vs code: 1) set environment variable: $env:FLASK_APP="01_intro.py" 2) py -m flask run --debug
 @app.route('/')
 def index():
     return 'Index page'
 
-# Step 1 - Routing and Variables Rules: https://flask.palletsprojects.com/en/2.0.x/quickstart/#routing
+# Step 1 - Routing and Variables Rules: https://flask.palletsprojects.com/en/2.2.x/quickstart/#routing
 @app.route('/subroute')
 def subroute():
     return 'Subpage'
@@ -25,7 +25,7 @@ def hello(name=None):
     else:
         return 'Hello ' + name
 
-# Step 2 - HTTP Methods: https://flask.palletsprojects.com/en/2.0.x/quickstart/#http-methods
+# Step 2 - HTTP Methods: https://flask.palletsprojects.com/en/2.2.x/quickstart/#http-methods
 from flask import request
 
 @app.route('/login', methods=['GET', 'POST'])

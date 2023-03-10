@@ -14,7 +14,7 @@
           <img src="{% if sensor.status: %} {{url_for('static', filename='img/on.jpg')}} {% else %} {{url_for('static', filename='img/off.jpg')}} {% endif %}" class="card-img-top" alt="sensor_on">
           <div class="card-body">
             <h5 class="card-title">{{ sensor.name }}</h5>
-            <a href="{{ api_key }}/{{ sensor.name }}" class="btn btn-primary">View data</a>
+            <a href="sensors/{{ sensor.name }}" class="btn btn-primary">View data</a>
           </div>
         </div>
       </div>
