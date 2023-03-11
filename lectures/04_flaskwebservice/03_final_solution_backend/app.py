@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, render_template, request
 from flasgger import Swagger
 from Api import Api
-from Views import Views
 
 app = Flask(__name__)
 app.config['SWAGGER'] = {
@@ -13,24 +12,6 @@ swagger = Swagger(app)
 path_to_data = "/tmp/sensor_data/"
 
 api = Api(path_to_data)
-views = Views(path_to_data)
-
-# --------------- Frontend ---------------
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.errorhandler(404)
-def not_found(error):
-    return render_template('error.html', error = error), 404
-
-@app.route('/sensors')
-def get_sensors():
-    return render_template('sensors.html', sensors=views.get_sensors())
-
-@app.route('/sensors/<int:sensor_id>')
-def get_sensor_data(sensor_id):
-    return render_template('sensor.html', sensor_data=views.get_sensor_data(sensor_id), sensor = sensor_id)
 
 # --------------- API ---------------
 @app.route('/api/sensors', methods=['GET'])
